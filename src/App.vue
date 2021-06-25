@@ -13,7 +13,7 @@
 import CoreMenu from './components/CoreMenu.vue';
 import SideBar from './components/SideBar.vue';
 import Chat from './components/Chat.vue';
-import PopUp from './components/PopUp.vue';
+import PopUp from './components/PopUp/PopUp.vue';
 
 export default {
   name: 'App',
