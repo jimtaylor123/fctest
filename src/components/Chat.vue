@@ -1,0 +1,19 @@
+<template>
+  <div class="style"></div>
+</template>
+
+<script>
+export default {
+    name: "Chat",
+
+}
+</script>
+
+<style lang="scss" scoped>
+.style {
+  height: 1004px;
+  width: 1030px;
+  margin-top:10px;
+  background-color: #96A6BE;
+}
+</style>

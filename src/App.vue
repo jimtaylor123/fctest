@@ -1,28 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="flex">
+      <CoreMenu/>
+      <SideBar/>
+      <Chat/>
+    </div>
+    <PopUp v-if="showPopUp"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CoreMenu from './components/CoreMenu.vue';
+import SideBar from './components/SideBar.vue';
+import Chat from './components/Chat.vue';
+import PopUp from './components/PopUp.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    CoreMenu,
+    SideBar,
+    Chat,
+    PopUp,
+  },
+  data: function () {
+    return {
+      showPopUp: true,
+    };
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+html {
+  height: 1024px;
+  width: 1440px;
+}
+body {
+  margin: 0;
+  background-color:#F6F8FD;
+}
+.flex {
+  display: flex;
 }
 </style>
