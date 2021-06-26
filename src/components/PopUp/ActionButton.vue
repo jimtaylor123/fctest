@@ -1,7 +1,10 @@
 <template>
   <div>
-      <div :disabled="isDisabled" class="button-text-container">
-          <div class="button-text">
+      <div :disabled="isDisabled" class="button-text-container"
+        v-bind:class="[isDisabled ? disabledContainer : activeContainer]"
+        v-on="{ [!isDisabled ? 'click' : null]: emitClick }"
+      >
+          <div class="button-text" v-bind:class="[isDisabled ? disabledText : activeText]">
           {{text}}
           </div>
         </div>
@@ -16,17 +19,43 @@ export default {
         isDisabled: {
             type: Boolean,
             default: false
+        },
+        textColor: String
+    },
+    data() {
+        return {
+            disabledContainer: 'disabled-container',
+            activeContainer: 'active-container',
+            disabledText: 'disabled-text',
+            activeText: 'active-text',
+        }
+    },
+    methods: {
+        emitClick: function () {
+            this.$emit('button-clicked')
         }
     }
 }
 </script>
 
 <style>
+.disabled-container {
+    opacity: 0.5;
+    background-color: #EFFAFF;
+}
+.active-container {
+    cursor: pointer;
+}
+.disabled-text {
+    opacity: 0.5;
+}
+.active-text {
+    cursor: pointer;
+}
 .button-text-container {
     height: 34px;
     width: 60px;
-    opacity: 0.5;
-    background-color: #EFFAFF;
+    background-color:#EFFAFF;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -35,9 +64,9 @@ export default {
     border-radius:5px;
 }
 .button-text {
+    color: #57ADD3;
     height: 18px;
     width: 33px;
-    color: #57ADD3;
     font-family: Nunito;
     font-size: 15px;
     font-weight: 600;
