@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="modal-header">
     <div class="flex-between">
       <CloseIcon />
 
       <div class="flex-between heading-group">
-        <div class="title">New Group</div>
+        <div class="title">Group Created</div>
         <ActionButton 
-          text="Next" 
-          v-bind:isDisabled="nextDisabled" 
-          v-on:button-clicked="moveOn"
+          text="Done" 
+          v-bind:isDisabled="false" 
+          v-on:button-clicked="close"
         />
       </div>
     </div>
@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import CloseIcon from "./../../Icons/CloseIcon.vue";
+import CloseIcon from "../../Icons/CloseIcon.vue";
 import ActionButton from "../ActionButton.vue";
 
 export default {
-  name: "CreatingHeader",
+  name: "CompleteHeader",
   components: {
     CloseIcon,
     ActionButton,
@@ -32,8 +32,8 @@ export default {
     },
   },
   methods: {
-    moveOn: function () {
-       this.$emit('start-adding-members', 'add')
+    close: function () {
+      this.$emit('close-modal');
     }
   }
 };
@@ -46,20 +46,19 @@ export default {
   justify-content: space-between;
 }
 .title {
-  height: 56px;
-  width: 94px;
+  height: 28px;
+  width: 120px;
   color: #405069;
-  font-family: "Nunito", sans-serif;
+  font-family: Nunito;
   font-size: 18px;
   letter-spacing: 0;
   line-height: 28px;
   text-align: center;
-  margin-top: 5px;
+  margin-top:5px;
 }
 .heading-group {
-  height: 61px;
-  width: 287px;
-  margin-top: 10px;
-  margin-right: 10px;
+  height: 34px;
+  width: 298px;
+  margin: 10px 12px 10px 0;
 }
 </style>
