@@ -24,8 +24,7 @@
           class="drag-drop-text"
           :drop="true"
           v-model="files"
-          @input-filter="inputFilter"
-          @change="editSave"
+          @input-filter="saveImage"
           ref="upload">
           Drag & drop an image, or click to upload
         </file-upload>
@@ -110,79 +109,32 @@ export default {
   data() {
     return {
       files: [],
-    //   edit: false,
-      cropper: false,
+      image: ''
     }
   },
 
-//   watch: {
-//     edit(value) {
-//       if (value) {
-//         this.$nextTick(function () {
-//           if (!this.$refs.editImage) {
-//             return
-//           }
-//           let cropper = new Cropper(this.$refs.editImage, {
-//             aspectRatio: 1 / 1,
-//             viewMode: 1,
-//           })
-//           this.cropper = cropper
-//         })
-//       } else {
-//         if (this.cropper) {
-//           this.cropper.destroy()
-//           this.cropper = false
-//         }
-//       }
-//     }
-//   },
 
   methods: {
-    editSave() {
-    //   this.edit = false
 
-      let oldFile = this.files[0]
+    saveImage(newFile, oldFile, prevent) {
 
-      let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
-      let arr = new Uint8Array(binStr.length)
-      for (let i = 0; i < binStr.length; i++) {
-        arr[i] = binStr.charCodeAt(i)
-      }
-
-      let file = new File([arr], oldFile.name, { type: oldFile.type })
-
-      this.$refs.upload.update(oldFile.id, {
-        file,
-        type: file.type,
-        size: file.size,
-        active: true,
-      })
-    },
-
-    alert(message) {
-      alert(message)
-    },
-
-    // inputFile(newFile, oldFile) {
-    //   if (newFile && !oldFile) {
-    //     this.$nextTick(function () {
-    //       this.edit = true
-    //     })
-    //   }
-    //   if (!newFile && oldFile) {
-    //     this.edit = false
-    //   }
-    // },
-
-    inputFilter(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
         if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
-          this.alert('Your choice is not a picture')
+          alert('Your choice is not a picture')
           return prevent()
         }
       }
 
       if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            this.image = e.target.result;
+            this.$emit('image', this.image);
+        };
+
+        reader.readAsDataURL(newFile.file);
         newFile.url = ''
         let URL = window.URL || window.webkitURL
         if (URL && URL.createObjectURL) {

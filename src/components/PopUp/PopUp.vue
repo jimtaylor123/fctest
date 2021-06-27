@@ -7,6 +7,7 @@
             v-bind:group="group"
             v-on:start-adding-members="proceed"
             v-on:change-group-name="changeGroupName"
+            v-on:image="setImage"
           />
         </div>
         <div v-else-if="status.addingMembers">
@@ -26,6 +27,7 @@
 import Creating from "./Creating/Creating.vue";
 import AddingMembers from "./AddingMembers/AddingMembers.vue";
 import Complete from "./Complete/Complete.vue";
+import axios from "axios";
 
 export default {
   name: "PopUp",
@@ -41,8 +43,8 @@ export default {
         addingMembers: false,
       },
       group: {
-        name: "",
-        image: "",
+        name: "asdf",
+        image: "asdf",
         members: [],
         saved: false,
       },
@@ -71,8 +73,25 @@ export default {
     },
     changeGroupName(name) {
       this.group.name = name;
+    },
+    setImage(image){
+      this.group.image = image;
+    },
+    getContacts(){
+      axios.get(`${process.env.VUE_APP_API_URL}/getContacts`,  {
+      headers: {
+        Authorization: `Bearer ${process.env.VUE_APP_AUTH_TOKEN}`
+      }
+      })
+      .then(response => {
+        console.log(response)
+        this.contacts = response.data.contacts;
+      });
     }
   },
+  beforeMount(){
+    this.getContacts();
+  }
 };
 </script>
 

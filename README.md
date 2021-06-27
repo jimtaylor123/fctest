@@ -1,5 +1,7 @@
 # fctest
 
+NB For convenience I've committed the .env file to the git history, but in a real application this would be kept separate.
+
 ## Project setup
 ```
 yarn install

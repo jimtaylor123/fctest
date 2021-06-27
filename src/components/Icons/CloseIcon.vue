@@ -10,8 +10,14 @@
     xmlns="http://www.w3.org/2000/svg"
     xmlns:serif="http://www.serif.com/"
     class="close-filter close-icon"
-    width="14px" height="14px"
-    
+    v-bind:style="{ 
+      width: iconSize, 
+      height: iconSize, 
+      marginTop: iconMargins[0], 
+      marginRight: iconMargins[1], 
+      marginBottom: iconMargins[2], 
+      marginLeft: iconMargins[3], 
+    }"
   >
     <g transform="matrix(.70711 -.70711 .70711 .70711 -3.4281 6)">
       <g serif:id="User-Item-/-Normal">
@@ -31,6 +37,13 @@
 <script>
 export default {
   name: "CloseIcon",
+  props: ['size', 'margins'],
+  data() {
+    return {
+      iconSize: this.size?? '14px',
+      iconMargins: this.margins?? ['20px', '0px', '20px', '20px']
+    }
+  }
 };
 </script>
 

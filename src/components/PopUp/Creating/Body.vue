@@ -1,6 +1,6 @@
 <template>
   <div class="modal-body">
-    <FileUpload/>
+    <FileUpload v-on:image="$emit('image', $event)"/>
     <div class="name-input">
       <input class="search-everything destyle-input" type="text" placeholder="Enter group name" @input="$emit('change-group-name', $event)">
     </div>
@@ -49,7 +49,6 @@ export default {
   appearance: none;
   vertical-align: middle;
   color: inherit;
-  // font: inherit;
   border: 0;
   background: transparent;
   outline: 0;
