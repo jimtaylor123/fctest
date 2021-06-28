@@ -13,7 +13,9 @@
         <div v-else-if="status.addingMembers">
           <AddingMembers
             v-bind:group="group"
+            v-bind:contacts="contacts"
             v-on:save-group="proceed"
+            v-on:toggle-member="toggleMember"
           />
         </div>
         <div v-else>
@@ -39,12 +41,12 @@ export default {
   data: function () {
     return {
       status: {
-        creatingGroup: true,
-        addingMembers: false,
+        creatingGroup: false,
+        addingMembers: true,
       },
       group: {
-        name: "asdf",
-        image: "asdf",
+        name: "as",
+        image: "asf",
         members: [],
         saved: false,
       },
@@ -84,9 +86,16 @@ export default {
       }
       })
       .then(response => {
-        console.log(response)
         this.contacts = response.data.contacts;
       });
+    },
+    toggleMember(contactId){
+      console.log('CONTACT ID', contactId);
+      if(this.group.members.includes(contactId)){
+        this.group.members = this.group.members.filter(memberId => memberId !== contactId);
+      } else {
+        this.group.members.push(contactId)
+      }
     }
   },
   beforeMount(){

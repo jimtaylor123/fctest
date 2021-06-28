@@ -42,10 +42,6 @@ export default {
 </script>
 
 <style>
-.close-filter {
-  filter: invert(46%) sepia(50%) saturate(517%) hue-rotate(174deg)
-    brightness(92%) contrast(86%);
-}
 .back-icon {
   width:"30px";
   height:"30px";

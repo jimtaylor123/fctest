@@ -4,7 +4,7 @@
         v-bind:group="group"
         v-on:save-group="proceed"
     />
-    <Body/>
+    <Body v-bind:contacts="contacts" v-on:toggle-member="$emit('toggle-member', $event)"/>
   </div>
 </template>
 
@@ -17,11 +17,11 @@ export default {
     Header,
     Body
   },
-  props: ['group'],
+  props: ['group', 'contacts'],
   methods: {
     proceed() {
       this.$emit("start-adding-members", "save-group");
-    },
+    }
   }
 }
 </script>

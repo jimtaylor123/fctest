@@ -23,7 +23,9 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 .search-container{
-    height: 90px;
+    height: 70px;
+    background-color: #F6F8FD;
+    box-shadow: 0 0 50px 0 rgba(223,231,242,0.5);
 }
 .search-input{
     height: 50px;
