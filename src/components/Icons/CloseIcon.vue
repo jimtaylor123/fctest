@@ -53,5 +53,6 @@ export default {
 }
 .close-icon{
   margin:20px 0px 20px 20px;
+  cursor: pointer;
 }
 </style>

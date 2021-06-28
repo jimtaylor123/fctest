@@ -3,6 +3,7 @@
     <Header 
         v-bind:group="group"
         v-on:save-group="proceed"
+        v-on:go-back="$emit('go-back')"
     />
     <Body v-bind:contacts="contacts" v-on:toggle-member="$emit('toggle-member', $event)"/>
   </div>
@@ -20,7 +21,7 @@ export default {
   props: ['group', 'contacts'],
   methods: {
     proceed() {
-      this.$emit("start-adding-members", "save-group");
+      this.$emit("save-group", "save-group");
     }
   }
 }

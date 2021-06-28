@@ -11,7 +11,7 @@
       <!-- Image preview -->
       <div class="group-icon">
         <label for="avatar">
-          <img :src="files.length ? files[0].url : './group.svg'"  class="rounded-circle" />
+          <img :src="files.length ? files[0].url : group.avatar? group.avatar : './group.svg'"  class="rounded-circle" />
         </label>
       </div>
 
@@ -105,6 +105,7 @@ export default {
   components: {
     FileUpload,
   },
+  props: ['group'],
 
   data() {
     return {

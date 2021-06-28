@@ -1,8 +1,8 @@
 <template>
   <div class="modal-body">
-    <FileUpload v-on:image="$emit('image', $event)"/>
+    <FileUpload v-bind:group="group" v-on:image="$emit('image', $event)"/>
     <div class="name-input">
-      <input class="search-everything destyle-input" type="text" placeholder="Enter group name" @input="$emit('change-group-name', $event)">
+      <input class="search-everything destyle-input" type="text" v-model="group.name" placeholder="Enter group name" @input="$emit('change-group-name', $event)">
     </div>
   </div>
 </template>
@@ -10,6 +10,7 @@
 import FileUpload from ".././FileUpload.vue"
 export default {
   name: "Body",
+  props: ['group'],
   components: {
     FileUpload
   }
@@ -30,7 +31,6 @@ export default {
   background-color: #FFFFFF;
   margin:0 auto;
 }
-
 
 .search-everything{
   height: 22px;

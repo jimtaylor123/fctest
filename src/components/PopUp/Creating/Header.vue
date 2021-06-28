@@ -1,7 +1,9 @@
 <template>
   <div class="modal-header">
     <div class="flex-between">
+      <div @click="$emit('close-modal')">
       <CloseIcon />
+      </div>
 
       <div class="flex-between heading-group">
         <div class="title">New Group</div>
@@ -27,7 +29,7 @@ export default {
   },
   computed: {
     nextDisabled: function () {
-      return this.group.name.trim() === "" || this.group.image.trim() === "";
+      return this.group.name.trim() === "" || this.group.avatar.trim() === "";
     },
   },
   methods: {

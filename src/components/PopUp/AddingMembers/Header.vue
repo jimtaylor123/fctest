@@ -2,14 +2,16 @@
   <div class="modal-header">
     <div class="add-members-header">
       <!-- back arrow -->
+      <div @click="$emit('go-back')">
       <BackIcon />
+      </div>
       <!-- group members -->
       <div class="group-members-title">Group Members</div>
       <!-- save button -->
       <div class="action-button-wrapper">
         <ActionButton
           text="Save"
-          v-bind:isDisabled="saveDisabled"
+          v-bind:isDisabled="saveDisabled || isSubmitting"
           v-on:button-clicked="moveOn"
         />
       </div>
@@ -23,6 +25,11 @@ import ActionButton from "../ActionButton.vue";
 export default {
   name: "AddingMembersHeader",
   props: ["group"],
+  data(){
+    return {
+      isSubmitting: false
+    }
+  },
   components: {
     BackIcon,
     ActionButton,
@@ -34,6 +41,7 @@ export default {
   },
   methods: {
     moveOn: function () {
+      this.isSubmitting = true;
       this.$emit("save-group", "save");
     },
   },

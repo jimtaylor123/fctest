@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header v-bind:group="group" v-on:start-adding-members="proceed"/>
-    <CreatingBody v-on:change-group-name="changeGroupName" v-on:image="$emit('image', $event)"/>
+    <Header v-bind:group="group" v-on:start-adding-members="proceed" v-on:close-modal="$emit('close-modal', 'close-modal')"/>
+    <CreatingBody v-bind:group="group" v-on:change-group-name="changeGroupName" v-on:image="$emit('image', $event)"/>
   </div>
 </template>
 

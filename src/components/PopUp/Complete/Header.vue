@@ -1,15 +1,18 @@
 <template>
   <div class="modal-header">
     <div class="flex-between">
+      <div @click="$emit('close-modal')">
       <CloseIcon />
+      </div>
 
       <div class="flex-between heading-group">
         <div class="title">Group Created</div>
-        <ActionButton 
-          text="Done" 
-          v-bind:isDisabled="false" 
-          v-on:button-clicked="close"
-        />
+        <div @click="close">
+          <ActionButton 
+            text="Done" 
+            v-bind:isDisabled="false" 
+          />
+         </div>
       </div>
     </div>
   </div>

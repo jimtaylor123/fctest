@@ -8,6 +8,7 @@
             v-on:start-adding-members="proceed"
             v-on:change-group-name="changeGroupName"
             v-on:image="setImage"
+            v-on:close-modal="proceed"
           />
         </div>
         <div v-else-if="status.addingMembers">
@@ -16,10 +17,11 @@
             v-bind:contacts="contacts"
             v-on:save-group="proceed"
             v-on:toggle-member="toggleMember"
+            v-on:go-back="goBack"
           />
         </div>
         <div v-else>
-          <Complete />
+          <Complete  v-on:close-modal="proceed"/>
         </div>
       </div>
     </div>
@@ -41,16 +43,15 @@ export default {
   data: function () {
     return {
       status: {
-        creatingGroup: false,
-        addingMembers: true,
+        creatingGroup: true,
+        addingMembers: false,
       },
       group: {
-        name: "as",
-        image: "asf",
-        members: [],
-        saved: false,
+        name: "",
+        avatar: "",
+        members: []
       },
-      contacts: [],
+      contacts: []
     };
   },
   methods: {
@@ -61,12 +62,11 @@ export default {
           this.status.addingMembers = true;
           break;
         case "save-group":
-          //TODO save group
-          this.status.creatingGroup = false;
-          this.status.addingMembers = false;
+          this.saveGroup();
           break;
         case "close-modal":
           //TODO close modal by emitting close signal
+          alert('this would close the modal');
           break;
 
         default:
@@ -77,7 +77,7 @@ export default {
       this.group.name = name;
     },
     setImage(image){
-      this.group.image = image;
+      this.group.avatar = image;
     },
     getContacts(){
       axios.get(`${process.env.VUE_APP_API_URL}/getContacts`,  {
@@ -90,12 +90,27 @@ export default {
       });
     },
     toggleMember(contactId){
-      console.log('CONTACT ID', contactId);
       if(this.group.members.includes(contactId)){
         this.group.members = this.group.members.filter(memberId => memberId !== contactId);
       } else {
         this.group.members.push(contactId)
       }
+    },
+    saveGroup(){
+      axios.post(`${process.env.VUE_APP_API_URL}/createGroup`, this.group, {
+        headers: {
+          Authorization: `Bearer ${process.env.VUE_APP_AUTH_TOKEN}`
+        }
+      })
+      .then(() => {
+        this.status.creatingGroup = false;
+        this.status.addingMembers = false;
+      });
+    },
+    goBack(){
+      this.group.members = [];
+      this.status.creatingGroup = true;
+      this.status.addingMembers = false;
     }
   },
   beforeMount(){
